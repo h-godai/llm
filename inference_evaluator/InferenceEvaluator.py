@@ -145,14 +145,14 @@ class InferenceEvaluator:
       inputs["input_ids"],
       max_new_tokens = self.max_tokens_,  # 最大生成トークン数
       do_sample=self.do_sample_,          # True, # False, #True,          # サンプリングを無効
-      pad_token_id=tokenizer.pad_token_id,
+      pad_token_id=self.tokenizer_.pad_token_id,
       repetition_penalty=self.repetition_penalty_, # 繰り返しのペナルティ
       temperature = self.temperature_,    # 出力の多様性を制御
       top_p=self.top_p_                   # トップ確率のフィルタリング
     )
 
     # 結果をデコードして返す
-    generated_text = tokenizer.decode(output[0], skip_special_tokens=True).split('\n### 回答')[-1]
+    generated_text = self.tokenizer_.decode(output[0], skip_special_tokens=True).split('\n### 回答')[-1]
     return generated_text.strip()
 
   # リトライ付きのOpenAIのAPIコール
