@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='firestom',
-    version='0.1.0',
+    version='0.1.1',
     description='A simple library for LLM',
     author='h.godai',
     author_email='godai@techarts.co.jp',
