@@ -1,0 +1,27 @@
+services:
+  colab:
+#   buildせずにイメージをそのまま使う場合は、build:の代わりにこれを使う
+#   image: asia-docker.pkg.dev/colab-images/public/runtime:release-colab_20250603-060055_RC00
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: colab-runtime
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "0.0.0.0:7860:7860"
+
+    environment:
+      - JUPYTER_TOKEN=123123123
+
+    volumes:
+      - ./content:/content
+      - ./cache:/root/.cache
